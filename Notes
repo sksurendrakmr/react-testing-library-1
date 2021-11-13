@@ -1,0 +1,38 @@
+command
+
+get => expect element to be in DOM.
+
+query => expect element not to be in DOM.
+
+find => expect element to appear async. This is handy
+when there are asynchronous updates to the DOM and we want
+to wait for one of them to occur before running our assertions.
+
+[All]
+-> (exclude) expect only one match
+-> (include) expecy more than one match
+
+QueryType (what we are searching by)
+-> Role (most preferred)
+-> AltText (images)
+-> Text (display elements)
+
+-> Form elements
+    -> placeholderText
+    -> LabelText
+    -> DisplayValue
+
+
+not wrapped in act(...) warning => Not follow this advice.
+-> The element was updated in the dom after the test was finished.
+means some async update occured after the test function had already exited.
+
+In our case, the popover disapperance is happening asynchronously which
+means it was happening after the test function had completed.
+
+To remedy this error:
+-> Determine what changes are happening after the test is over (async)
+-> Account for the change in test by
+    ->awaiting the change and
+    -> assert on it.
+
